@@ -1,0 +1,8 @@
+sequence,actual,n,correct,accuracy,mean_confidence,predicted_counts
+DWI,Haemorrhagic,6,4,0.6666666666666666,0.611655081908085,Haemorrhagic=4; Normal=2
+DWI,Ischemic,2,2,1.0,0.772165325468227,Ischemic=2
+DWI,Normal,19,16,0.8421052631578947,0.7699659181447768,Ischemic=3; Normal=16
+FLAIR,Ischemic,2,2,1.0,0.9798372157284848,Ischemic=2
+GRE,Haemorrhagic,5,3,0.6,0.7031453787527715,Haemorrhagic=3; Normal=2
+GRE,Normal,16,11,0.6875,0.6467913296214628,Haemorrhagic=3; Ischemic=2; Normal=11
+SWI,Haemorrhagic,18,18,1.0,0.6866637623300464,Haemorrhagic=18

@@ -1,0 +1,11 @@
+Selected model: stage 2 — test split (68 images, 3 patients)
+
+              precision    recall  f1-score   support
+
+Haemorrhagic     0.8929    0.8621    0.8772        29
+    Ischemic     0.4444    1.0000    0.6154         4
+      Normal     0.8710    0.7714    0.8182        35
+
+    accuracy                         0.8235        68
+   macro avg     0.7361    0.8778    0.7703        68
+weighted avg     0.8552    0.8235    0.8314        68

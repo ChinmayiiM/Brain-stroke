@@ -1,0 +1,151 @@
+# =====================================================================
+# Brain Stroke Detection — central configuration
+# All paths are relative to the project root.
+# Values marked TBD are decided in a later phase (do not guess them).
+# =====================================================================
+
+project:
+  name: brain-stroke-detection
+  seed: 42                       # global seed for reproducibility
+
+paths:
+  raw_data: dataset/raw          # original download + extracted archive (read-only)
+  processed_data: dataset/processed   # cleaned, pseudonymised copy, organised by class
+  train_data: dataset/train      # <class>/ folders — training split
+  validation_data: dataset/validation
+  test_data: dataset/test        # untouched until final evaluation
+  metadata: dataset/metadata     # metadata CSV, cleaning log, patient split map
+  models: models                 # saved .keras models + checkpoints
+  reports: reports               # metrics, plots, training logs
+
+dataset:
+  name: Brain Stroke MRI Images
+  source_url: https://www.kaggle.com/datasets/mitangshu11/brain-stroke-mri-images
+  download_url: https://www.kaggle.com/api/v1/datasets/download/mitangshu11/brain-stroke-mri-images
+  archive_name: brain-stroke-mri-images.zip
+  extract_dir: brain-stroke-mri-images
+  # SHA-256 of the archive as downloaded on 2026-10-04 (Kaggle version 1).
+  # A mismatch means the upstream dataset changed — the pipeline warns, it does not fail.
+  archive_sha256: 21237d2a2dc89635d170f9867203a58e076048437641491a1f1b895f2b55c188
+  # Sub-folder used as the source of truth. "Stroke_classification" is the author's
+  # version with burned-in DICOM text (patient name, DOB, scanner) removed; the other
+  # two top-level folders contain the same scans WITH that text and are not used.
+  source_subdir: dataset/Stroke_classification
+  license: Unknown (as listed on Kaggle) — academic, non-commercial use only
+
+data:
+  class_names: [Haemorrhagic, Ischemic, Normal]   # must match source class folders exactly
+  allowed_extensions: [".png", ".jpg", ".jpeg"]
+  # Source filenames encode patient, MRI sequence and slice, e.g.
+  #   "Kuppusamy DWI-4.jpg_Haemorrhagic_1.png"   "Bushan Yadav SWI-34(1).jpg_Normal_270.png"
+  filename_pattern: '^(?P<patient>.+?) (?P<sequence>T2 Flair|DWI|GRE|SWI|T2|FLAIR)-(?P<slice>\d+)(?:\((?P<variant>\d+)\))?\.(?:jpe?g|png)_(?P<label>[A-Za-z]+)_(?P<index>\d+)\.png$'
+  split:
+    train: 0.70
+    val: 0.15
+    test: 0.15
+    group_by: patient_id         # patient-level split — no patient appears in two splits
+
+cleaning:
+  min_file_bytes: 1024           # smaller files are treated as empty/truncated
+  min_dimension: 64              # px; smaller images cannot carry usable anatomy
+  max_dimension: 4096
+  max_aspect_ratio: 2.0          # width/height (or inverse) beyond this is flagged
+  near_duplicate_hamming: 4      # pHash distance (0–64) at or below which images are near-duplicates
+
+preprocessing:
+  image_size: [224, 224]         # EfficientNetB0 native input resolution
+  channels: 3                    # grayscale MRI is replicated to 3 channels for ImageNet weights
+  interpolation: area            # cv2.INTER_AREA for downscaling (most source images are 256/512 px)
+  # NOTE: keras.applications.EfficientNetB0 includes its own rescaling/normalisation
+  # layer, so inputs are fed as raw [0, 255] float pixels — do NOT divide by 255.
+
+augmentation:                    # training split ONLY — see docs/DATA_PIPELINE.md for rationale
+  enabled: true
+  horizontal_flip: true          # left/right hemispheres are mirror-plausible; no vertical flip
+  rotation: 0.03                 # fraction of 2π → ±10.8°, mimics head tilt in the scanner
+  zoom: 0.10                     # ±10 % — head size / field-of-view variation
+  translation: 0.05              # ±5 % — head position within the field of view
+  contrast: 0.10                 # ±10 % — scanner / windowing variation
+  brightness: 0.05               # ±5 % of the [0, 255] range
+
+pipeline:                        # tf.data input pipeline (src/training/data_loader.py)
+  metadata_file: dataset/metadata/dataset_metadata.csv
+  # MRI sequences to include (null = all). Because sequence is confounded with class
+  # (docs/DATA_PIPELINE.md §6), e.g. [DWI] trains on the only sequence present in every class.
+  sequences: null
+  cache: true                    # cache decoded+resized images in memory ...
+  cache_max_mb: 1024             # ... only if the split's estimated float32 size is below this
+  shuffle_buffer: null           # null = whole training split (small dataset → perfect shuffle)
+  num_parallel_calls: autotune
+
+model:
+  name: efficientnetb0_stroke_mri  # used for artifact file names
+  backbone: EfficientNetB0
+  weights: imagenet              # null = random init (only for offline tests; not for training)
+  dropout: 0.3
+  # Output activation is derived from the number of classes:
+  #   2 classes → 1 sigmoid unit + binary cross-entropy
+  #   >2 classes → N softmax units + categorical cross-entropy
+
+training:
+  batch_size: 32
+  class_weighting: balanced      # balanced | null — weights computed from the TRAINING split only
+  stage1:                        # feature extraction: backbone frozen, head trained
+    epochs: 30
+    learning_rate: 1.0e-3
+  stage2:                        # fine-tuning: top backbone layers unfrozen
+    epochs: 20
+    learning_rate: 1.0e-5        # ~100x smaller than stage 1 to avoid destroying ImageNet features
+    unfreeze_top_n_layers: 20    # counted from the top of the backbone; BatchNorm layers stay frozen
+  early_stopping:
+    monitor: val_loss
+    mode: min
+    patience: 6
+    min_delta: 1.0e-4
+    restore_best_weights: true
+  checkpoint:
+    monitor: val_loss            # best epoch WITHIN a stage (smooth; uses full probabilities)
+    mode: min
+  model_selection:               # choose stage-1 vs stage-2 model — VALIDATION data only
+    metric: macro_recall         # mean per-class sensitivity (= balanced accuracy); imbalance-robust
+    tie_breaker: loss            # lower validation loss wins if the metric ties
+    tie_tolerance: 1.0e-6
+  reduce_lr_on_plateau:
+    monitor: val_loss
+    mode: min
+    factor: 0.2
+    patience: 3
+    min_lr: 1.0e-7
+
+artifacts:
+  checkpoints_dir: models/checkpoints  # best-so-far during training (overwritten only on improvement)
+  best_dir: models/best                # best validated model + model_metadata.json
+  final_dir: models/final              # model state at the end of training
+  training_reports_dir: reports/training
+  model_reports_dir: reports/model
+  results_dir: results                 # plots/, metrics/, analysis/ of the latest experiment
+
+evaluation:
+  metrics: [accuracy, precision, recall, f1, confusion_matrix]
+  average: macro                 # macro-averaging so minority classes count equally
+
+inference:
+  model_path: models/best/efficientnetb0_stroke_mri.keras   # Phase 4 validation-selected model (stage 2)
+  metadata_file: model_metadata.json   # expected next to the model; class order + preprocessing contract
+  batch_output_dir: results/inference  # batch prediction CSVs (never overwrites Phase 4 artifacts)
+  probability_tolerance: 1.0e-4        # softmax rows must sum to 1 within this tolerance
+  binary_view:                         # UI presentation only — the model stays 3-class
+    positive_label: STROKE
+    negative_label: NO STROKE
+    positive_classes: [Haemorrhagic, Ischemic]   # probabilities are summed
+    negative_classes: [Normal]
+    # Decision: STROKE if P(positive) >= 0.5 (ties go to STROKE); confidence = probability of the shown label.
+  region_view:                         # STROKE only: occlusion sensitivity — model interpretability, NOT a lesion mask
+    patch_size: 48                     # black square hidden over the 224×224 model input
+    stride: 24                         # 8×8 = 64 occluded copies per image (~3–6 s on CPU)
+    batch_size: 64
+    threshold: 0.65                    # region = connected area whose P(STROKE) drop is ≥ 65% of the largest drop
+    min_drop: 0.05                     # if no patch lowers P(STROKE) by ≥ 5 points, nothing is highlighted
+    fill_alpha: 0.35
+    head_intensity: 10                 # grey level separating the head from the black scan background
+  disclaimer: "AI-assisted prediction — not a medical diagnosis."

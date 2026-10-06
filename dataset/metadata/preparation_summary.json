@@ -1,0 +1,50 @@
+{
+  "seed": 42,
+  "source_files": 615,
+  "included": 603,
+  "excluded": 12,
+  "exclusion_reasons": {
+    "exact_duplicate_of": 12
+  },
+  "flagged_not_excluded": 0,
+  "images_per_split_and_class": {
+    "train": {
+      "Haemorrhagic": 128,
+      "Ischemic": 21,
+      "Normal": 285
+    },
+    "validation": {
+      "Haemorrhagic": 29,
+      "Ischemic": 5,
+      "Normal": 67
+    },
+    "test": {
+      "Haemorrhagic": 29,
+      "Ischemic": 4,
+      "Normal": 35
+    }
+  },
+  "patients_per_split_and_class": {
+    "train": {
+      "Haemorrhagic": 3,
+      "Ischemic": 3,
+      "Normal": 3
+    },
+    "validation": {
+      "Haemorrhagic": 1,
+      "Ischemic": 1,
+      "Normal": 2
+    },
+    "test": {
+      "Haemorrhagic": 1,
+      "Ischemic": 1,
+      "Normal": 1
+    }
+  },
+  "split_fraction_of_images": {
+    "train": 0.7197,
+    "validation": 0.1675,
+    "test": 0.1128
+  },
+  "verification_problems": []
+}

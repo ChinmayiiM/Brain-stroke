@@ -1,0 +1,327 @@
+{
+  "generated": "2026-10-04T23:55:11.873437",
+  "passed": 40,
+  "total": 40,
+  "checks": [
+    {
+      "area": "Dataset",
+      "name": "Prepared dataset integrity",
+      "expected": "files exist, open, match hashes/labels/splits; 0 problems",
+      "actual": "0 problems; 603 images; per split/class {'test': {'Haemorrhagic': 29, 'Ischemic': 4, 'Normal': 35}, 'train': {'Haemorrhagic': 128, 'Ischemic': 21, 'Normal': 285}, 'validation': {'Haemorrhagic': 29, 'Ischemic': 5, 'Normal': 67}}",
+      "status": "PASS",
+      "notes": "verify_prepared_dataset opens every image and checks hashes, label folders, split folders"
+    },
+    {
+      "area": "Dataset",
+      "name": "Split separation",
+      "expected": "no patient or identical image in >1 split",
+      "actual": "patients in >1 split: 0; identical images in >1 split: 0",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Dataset",
+      "name": "Class balance (informational)",
+      "expected": "documented imbalance",
+      "actual": "class share % {'Normal': 64.2, 'Haemorrhagic': 30.8, 'Ischemic': 5.0}",
+      "status": "PASS",
+      "notes": "Imbalanced by design of the source dataset; handled with class weights (Phase 3/4)"
+    },
+    {
+      "area": "Preprocessing",
+      "name": "Training = inference = Streamlit inputs",
+      "expected": "bitwise identical arrays",
+      "actual": "32 validation images; identical=True; shape=(224, 224, 3), dtype=float32, range=[0, 255]",
+      "status": "PASS",
+      "notes": "All three paths call src.preprocessing.image_ops.preprocess_image"
+    },
+    {
+      "area": "Model",
+      "name": "Model integrity",
+      "expected": "loads; input (None,224,224,3); output (None,3) softmax; file identical to validation-selected checkpoint",
+      "actual": "input (None, 224, 224, 3), output (None, 3) softmax, params 4,053,414 (training record 4,053,414); identical to efficientnetb0_stroke_mri_stage2_best.keras: True",
+      "status": "PASS",
+      "notes": "model file SHA-256 50007b52cbf07700\u2026"
+    },
+    {
+      "area": "Class mapping",
+      "name": "Index \u2192 class name is identical everywhere",
+      "expected": "same order in all components",
+      "actual": "config: ['Haemorrhagic', 'Ischemic', 'Normal'] | dataset metadata (label idx): ['Haemorrhagic', 'Ischemic', 'Normal'] | model_metadata.json: ['Haemorrhagic', 'Ischemic', 'Normal'] | inference Predictor: ['Haemorrhagic', 'Ischemic', 'Normal'] | evaluation prob columns: ['Haemorrhagic', 'Ischemic', 'Normal'] | confusion matrix labels: ['Haemorrhagic', 'Ischemic', 'Normal']; evaluation index\u2192name consistent: True",
+      "status": "PASS",
+      "notes": "Streamlit renders PredictionResult.probabilities, whose keys come from the Predictor"
+    },
+    {
+      "area": "Evaluation",
+      "name": "Phase 4 artifacts present",
+      "expected": "12 files exist",
+      "actual": "missing: none; recorded test accuracy 0.8235, macro F1 0.7703, macro ROC-AUC 0.9381 (n=68)",
+      "status": "PASS",
+      "notes": "Values read from the Phase 4 file \u2014 not recomputed and not derived from app uploads"
+    },
+    {
+      "area": "Leakage",
+      "name": "No test data in training/selection",
+      "expected": "all blocking checks pass; augmentation train-only",
+      "actual": "passed=True; selection recorded before test=True; train.py requests test split=False; test\u2194fit near-duplicates=0; augmentation layers inside saved model=False",
+      "status": "PASS",
+      "notes": "Augmentation is applied only in the training tf.data pipeline (data_loader.build_dataset training=True)"
+    },
+    {
+      "area": "CLI",
+      "name": "Real images via CLI",
+      "expected": "exit 0, valid JSON, \u03a3p=1, same as Phase 4 evaluation",
+      "actual": "HAE-P01_DWI_s004.png \u2192 Haemorrhagic 48.89% (\u03a3p=1.000000, |\u0394p| vs Phase 4=4.5e-08, 23.9s); ISC-P05_DWI_s019.png \u2192 Ischemic 73.88% (\u03a3p=1.000000, |\u0394p| vs Phase 4=2.2e-07, 22.4s); NOR-P06_DWI_s004.png \u2192 Normal 87.64% (\u03a3p=1.000000, |\u0394p| vs Phase 4=1.2e-07, 24.0s)",
+      "status": "PASS",
+      "notes": "3 distinct confidences across 3 images (not a fixed output)"
+    },
+    {
+      "area": "Edge cases",
+      "name": "Valid PNG (original)",
+      "expected": "valid prediction",
+      "actual": "Haemorrhagic 48.89%",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Valid JPG",
+      "expected": "valid prediction",
+      "actual": "Haemorrhagic 47.73%",
+      "status": "PASS",
+      "notes": "JPEG re-encoding is lossy; prediction may differ slightly"
+    },
+    {
+      "area": "Edge cases",
+      "name": "Valid JPEG",
+      "expected": "valid prediction",
+      "actual": "Haemorrhagic 47.73%",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Grayscale (mode L)",
+      "expected": "valid prediction",
+      "actual": "Haemorrhagic 48.89%",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "RGB (mode RGB)",
+      "expected": "valid prediction",
+      "actual": "Haemorrhagic 48.89%",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Large image (2048\u00d72048)",
+      "expected": "valid prediction",
+      "actual": "Haemorrhagic 47.97%",
+      "status": "PASS",
+      "notes": "downscaled to 224\u00d7224 by the shared preprocessing"
+    },
+    {
+      "area": "Edge cases",
+      "name": "Very small image (32\u00d732)",
+      "expected": "ImageValidationError with clear message",
+      "actual": "Image rejected: Image too small: 32x32 (minimum 64px) (<TMP>\\stroke_edge_8xql4o1w\\tiny.png)",
+      "status": "PASS",
+      "notes": "below config cleaning.min_dimension"
+    },
+    {
+      "area": "Edge cases",
+      "name": "Corrupted image",
+      "expected": "ImageValidationError with clear message",
+      "actual": "Cannot read image (corrupted or not an image): <TMP>\\stroke_edge_8xql4o1w\\corrupted.png (cannot identify image file 'C:\\\\U",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Unsupported format (.bmp)",
+      "expected": "ImageValidationError with clear message",
+      "actual": "Unsupported file type '.bmp'. Supported: .png, .jpg, .jpeg",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Non-image file (.txt)",
+      "expected": "ImageValidationError with clear message",
+      "actual": "Unsupported file type '.txt'. Supported: .png, .jpg, .jpeg",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Missing file",
+      "expected": "ImageValidationError with clear message",
+      "actual": "Image not found: <TMP>\\stroke_edge_8xql4o1w\\missing.png",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Empty upload (bytes)",
+      "expected": "ImageValidationError with clear message",
+      "actual": "Uploaded file is empty: scan.png",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Missing model",
+      "expected": "ModelNotFoundError with clear message",
+      "actual": "Trained model not found: <TMP>\\stroke_edge_8xql4o1w\\absent.keras. Train it with `python -m src.training.train` or pass --m",
+      "status": "PASS",
+      "notes": "real model untouched; a non-existent path is passed instead"
+    },
+    {
+      "area": "Edge cases",
+      "name": "Unexpected model output (wrong shape)",
+      "expected": "ModelOutputError with clear message",
+      "actual": "Unexpected model output shape (1, 5); expected (N, 3)",
+      "status": "PASS",
+      "notes": "output-validation branch exercised directly"
+    },
+    {
+      "area": "Edge cases",
+      "name": "Unexpected model output (not a distribution)",
+      "expected": "ModelOutputError with clear message",
+      "actual": "Probabilities do not sum to 1 (sums=[2.7])",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Edge cases",
+      "name": "Temporary files cleaned up",
+      "expected": "temp dir removed",
+      "actual": "exists after run: False",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Performance",
+      "name": "Model load and prediction latency",
+      "expected": "model cached after first load (latency recorded, CPU-dependent)",
+      "actual": "first load 5.48s; cached load 0.002s; prediction mean 145 ms (min 143, max 147) on Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
+      "status": "PASS",
+      "notes": "Streamlit wraps the Predictor in st.cache_resource \u2192 one load per server process"
+    },
+    {
+      "area": "Streamlit",
+      "name": "Server starts",
+      "expected": "`streamlit run app/streamlit_app.py` \u2192 health 'ok', HTTP 200",
+      "actual": "health='ok', page status=200, startup 2.8s",
+      "status": "PASS",
+      "notes": "local only (localhost); started headless on a test port"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_original_layout_is_preserved",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_requested_elements_are_removed",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_upload_preview_and_binary_result",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_second_image_updates_result_and_reuses_cached_model",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_corrupted_upload_is_reported_not_crashing",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_non_image_with_allowed_extension_is_reported",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_uploader_only_accepts_configured_formats",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_missing_model_is_reported",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_model_card_uses_real_metadata",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "test_app_code_has_no_deploy_ui",
+      "expected": "see tests/test_app.py",
+      "actual": "PASSED",
+      "status": "PASS",
+      "notes": "AppTest drives the real script with the real model"
+    },
+    {
+      "area": "Streamlit",
+      "name": "App behaviour (AppTest suite)",
+      "expected": "all app tests pass",
+      "actual": "10 passed in 51.12s",
+      "status": "PASS",
+      "notes": ""
+    },
+    {
+      "area": "Privacy",
+      "name": "No persistence / no external calls",
+      "expected": "no file writes, temp files or network calls in app/inference; telemetry off",
+      "actual": "unexpected hits: none; Streamlit usage stats disabled: True",
+      "status": "PASS",
+      "notes": "Uploads stay in memory (UploadedFile.getvalue()); Streamlit keeps them in its in-memory file manager for the session only"
+    },
+    {
+      "area": "Safety wording",
+      "name": "No overclaiming language in UI",
+      "expected": "no forbidden phrases; sidebar disclaimer; 'Confidence' label",
+      "actual": "forbidden found: none; sidebar disclaimer present: True; 'Confidence' label: True",
+      "status": "PASS",
+      "notes": ""
+    }
+  ]
+}

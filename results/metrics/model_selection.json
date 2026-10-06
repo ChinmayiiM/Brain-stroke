@@ -1,0 +1,21 @@
+{
+  "selected_stage": 2,
+  "criterion": "max validation macro_recall; tie \u2192 min validation loss",
+  "validation": {
+    "1": {
+      "macro_recall": 0.7629095899811289,
+      "loss": 0.6080676174644327,
+      "accuracy": 0.7227722772277227,
+      "macro_f1": 0.6387260391278571
+    },
+    "2": {
+      "macro_recall": 0.7908732201063647,
+      "loss": 0.5687096347563516,
+      "accuracy": 0.7524752475247525,
+      "macro_f1": 0.6692657569850552
+    }
+  },
+  "decided_at_utc": "2026-10-04T16:26:50.829796+00:00",
+  "test_set_used": false,
+  "selected_checkpoint": "efficientnetb0_stroke_mri_stage2_best.keras"
+}

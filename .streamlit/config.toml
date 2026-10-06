@@ -1,0 +1,24 @@
+[theme]
+base = "light"
+primaryColor = "#1f5fae"
+backgroundColor = "#f4f7fb"
+secondaryBackgroundColor = "#e9eef5"
+textColor = "#14233a"
+baseRadius = "0.6rem"
+
+[theme.sidebar]             # dark navy navigation panel
+backgroundColor = "#0f2747"
+secondaryBackgroundColor = "#173761"
+textColor = "#e6edf7"
+primaryColor = "#3b82d6"
+linkColor = "#e6edf7"
+borderColor = "#2a4a75"
+
+[server]
+maxUploadSize = 20          # MB — a single 2D MRI slice is far smaller
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "viewer"      # hide Streamlit's developer toolbar controls (incl. "Deploy"); the ⋮ menu stays

@@ -1,0 +1,28 @@
+# Brain Stroke Detection — runtime dependencies
+# Target interpreter: Python 3.11 (TensorFlow-supported; see README "Environment").
+# Lower bounds = minimum features we rely on; upper bounds guard against
+# untested major releases. Exact resolved versions are recorded in
+# requirements-lock.txt after installation.
+
+# Deep learning (TensorFlow ships Keras 3 + keras.applications.EfficientNetB0)
+tensorflow>=2.16,<2.22
+
+# Numerical / tabular
+numpy>=1.26
+pandas>=2.1
+
+# Image I/O and processing
+opencv-python-headless>=4.9   # headless: no GUI deps needed (Streamlit renders UI)
+pillow>=10.2
+
+# Data splitting and evaluation metrics
+scikit-learn>=1.4
+
+# Training curves, confusion matrix plots
+matplotlib>=3.8
+
+# Web application
+streamlit>=1.32
+
+# YAML configuration (config/config.yaml)
+pyyaml>=6.0

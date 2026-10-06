@@ -1,0 +1,146 @@
+{
+  "run_id": "20261004-213043",
+  "selected_stage": 2,
+  "stage1_epochs": 28,
+  "stage2_epochs": 8,
+  "hyperparameters": {
+    "image_size": [
+      224,
+      224
+    ],
+    "batch_size": 32,
+    "optimizer": "Adam",
+    "loss": "categorical_crossentropy",
+    "stage1_learning_rate": 0.001,
+    "stage1_max_epochs": 30,
+    "stage2_learning_rate": 1e-05,
+    "stage2_max_epochs": 20,
+    "stage2_unfreeze_top_n_layers": 20,
+    "dropout": 0.3,
+    "backbone_weights": "imagenet",
+    "early_stopping": {
+      "monitor": "val_loss",
+      "mode": "min",
+      "patience": 6,
+      "min_delta": 0.0001,
+      "restore_best_weights": true
+    },
+    "reduce_lr_on_plateau": {
+      "monitor": "val_loss",
+      "mode": "min",
+      "factor": 0.2,
+      "patience": 3,
+      "min_lr": 1e-07
+    },
+    "checkpoint_monitor": "val_loss",
+    "augmentation": {
+      "enabled": true,
+      "horizontal_flip": true,
+      "rotation": 0.03,
+      "zoom": 0.1,
+      "translation": 0.05,
+      "contrast": 0.1,
+      "brightness": 0.05
+    },
+    "seed": 42
+  },
+  "class_weight": {
+    "Haemorrhagic": 1.1302083333333333,
+    "Ischemic": 6.888888888888889,
+    "Normal": 0.5076023391812865
+  },
+  "dataset": {
+    "num_classes": 3,
+    "label_encoding": {
+      "Haemorrhagic": 0,
+      "Ischemic": 1,
+      "Normal": 2
+    },
+    "images_per_split_and_class": {
+      "test": {
+        "Haemorrhagic": 29,
+        "Ischemic": 4,
+        "Normal": 35
+      },
+      "train": {
+        "Haemorrhagic": 128,
+        "Ischemic": 21,
+        "Normal": 285
+      },
+      "validation": {
+        "Haemorrhagic": 29,
+        "Ischemic": 5,
+        "Normal": 67
+      }
+    },
+    "images_per_split": {
+      "train": 434,
+      "validation": 101,
+      "test": 68
+    },
+    "batch_image_shape": [
+      32,
+      224,
+      224,
+      3
+    ],
+    "batch_label_shape": [
+      32,
+      3
+    ],
+    "model_input_shape": [
+      224,
+      224,
+      3
+    ],
+    "source_image_sizes": [
+      {
+        "image_width": 256,
+        "image_height": 256,
+        "n": 159
+      },
+      {
+        "image_width": 512,
+        "image_height": 512,
+        "n": 444
+      }
+    ],
+    "metadata_file": "dataset_metadata.csv",
+    "metadata_sha256": "94a036a209a2e2130e0377571de777d587bf0286091e108e8ec23ec1e3fbf56f",
+    "sequences": "all"
+  },
+  "stage1_freeze_check": {
+    "stage": 1,
+    "backbone_trainable_layers": 0,
+    "total": 4053414,
+    "trainable": 3843,
+    "non_trainable": 4049571,
+    "backbone_total": 4049571,
+    "backbone_trainable": 0,
+    "head_trainable": 3843
+  },
+  "stage2_freeze_check": {
+    "stage": 2,
+    "unfreeze_top_n_layers": 20,
+    "backbone_layers_total": 238,
+    "total": 4053414,
+    "trainable": 1346611,
+    "non_trainable": 2706803,
+    "backbone_total": 4049571,
+    "backbone_trainable": 1342768,
+    "head_trainable": 3843
+  },
+  "environment": {
+    "python": "3.11.9",
+    "tensorflow": "2.21.0",
+    "keras": "3.15.1",
+    "numpy": "2.4.6",
+    "platform": "Windows-10-10.0.26200-SP0"
+  },
+  "artifacts": {
+    "stage1_checkpoint": "models\\checkpoints\\efficientnetb0_stroke_mri_stage1_best.keras",
+    "stage2_checkpoint": "models\\checkpoints\\efficientnetb0_stroke_mri_stage2_best.keras",
+    "best_model": "models\\best\\efficientnetb0_stroke_mri.keras",
+    "final_model": "models\\final\\efficientnetb0_stroke_mri.keras"
+  }
+}

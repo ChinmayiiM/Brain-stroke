@@ -1,0 +1,11 @@
+Selected model: stage 2 — test images of sequences ['DWI'] only (27 images)
+
+              precision    recall  f1-score   support
+
+Haemorrhagic     1.0000    0.6667    0.8000         6
+    Ischemic     0.4000    1.0000    0.5714         2
+      Normal     0.8889    0.8421    0.8649        19
+
+    accuracy                         0.8148        27
+   macro avg     0.7630    0.8363    0.7454        27
+weighted avg     0.8774    0.8148    0.8287        27

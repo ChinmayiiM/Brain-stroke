@@ -1,0 +1,55 @@
+DATASET ANALYSIS (raw source, before cleaning)
+================================================
+Total images: 615
+
+Images per class:
+  Haemorrhagic     186  ( 30.2 %)  patients: 5
+  Ischemic          30  (  4.9 %)  patients: 5
+  Normal           399  ( 64.9 %)  patients: 6
+
+Images per patient:
+  Haemorrhagic   HAE-P01    29
+  Haemorrhagic   HAE-P02    50
+  Haemorrhagic   HAE-P03    36
+  Haemorrhagic   HAE-P04    29
+  Haemorrhagic   HAE-P05    42
+  Ischemic       ISC-P01     3
+  Ischemic       ISC-P02     7
+  Ischemic       ISC-P03    11
+  Ischemic       ISC-P04     5
+  Ischemic       ISC-P05     4
+  Normal         NOR-P01   103
+  Normal         NOR-P02    97
+  Normal         NOR-P03    97
+  Normal         NOR-P04    34
+  Normal         NOR-P05    33
+  Normal         NOR-P06    35
+
+Images per MRI sequence (rows) and class (columns):
+         Haemorrhagic  Ischemic  Normal
+  DWI              32        19     108
+  FLAIR             0         5       0
+  GRE              27         0      93
+  SWI             127         0     198
+  T2                0         6       0
+
+Image dimensions:
+  Width   min 256  max 512  mean 445.8
+  Height  min 256  max 512  mean 445.8
+  256x256: 159
+  512x512: 456
+
+File extensions:       {'.png': 615}
+Decoded formats:       {'PNG': 615}
+Colour modes:          {'RGB': 615}
+Grayscale content:     615 images (R=G=B)
+
+Missing class folders: none
+Unexpected folders:    none
+Missing files:         0
+Corrupted/unreadable:  0
+Unparseable filenames: 0
+Label mismatches:      0
+Duplicate filenames:   0
+Exact duplicates:      18 files in 6 groups (12 redundant copies)
+Near-duplicate pairs:  786 (9 across different patients)

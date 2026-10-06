@@ -1,0 +1,117 @@
+{
+  "model_path": "models\\best\\efficientnetb0_stroke_mri.keras",
+  "input_shape": [
+    224,
+    224,
+    3
+  ],
+  "output_kind": "softmax",
+  "class_names": [
+    "Haemorrhagic",
+    "Ischemic",
+    "Normal"
+  ],
+  "class_names_match_config": true,
+  "random_augmentation_layers_in_model": 0,
+  "images": [
+    {
+      "image_path": "dataset/test/Haemorrhagic/HAE-P01_SWI_s028.png",
+      "actual_label": "Haemorrhagic",
+      "predicted_class": "Haemorrhagic",
+      "confidence": 0.810811,
+      "phase4_predicted": "Haemorrhagic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 2.150453075611125e-07,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Haemorrhagic/HAE-P01_SWI_s017.png",
+      "actual_label": "Haemorrhagic",
+      "predicted_class": "Haemorrhagic",
+      "confidence": 0.693418,
+      "phase4_predicted": "Haemorrhagic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 4.5930502406976714e-07,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Haemorrhagic/HAE-P01_SWI_s013.png",
+      "actual_label": "Haemorrhagic",
+      "predicted_class": "Haemorrhagic",
+      "confidence": 0.724342,
+      "phase4_predicted": "Haemorrhagic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 8.324412508198265e-07,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Ischemic/ISC-P05_DWI_s020.png",
+      "actual_label": "Ischemic",
+      "predicted_class": "Ischemic",
+      "confidence": 0.805494,
+      "phase4_predicted": "Ischemic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 3.1602744676728634e-07,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Ischemic/ISC-P05_FLAIR_s019.png",
+      "actual_label": "Ischemic",
+      "predicted_class": "Ischemic",
+      "confidence": 0.972795,
+      "phase4_predicted": "Ischemic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 2.770472284918668e-08,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Ischemic/ISC-P05_DWI_s019.png",
+      "actual_label": "Ischemic",
+      "predicted_class": "Ischemic",
+      "confidence": 0.738836,
+      "phase4_predicted": "Ischemic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 2.1734724531263794e-07,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Normal/NOR-P06_GRE_s011.png",
+      "actual_label": "Normal",
+      "predicted_class": "Haemorrhagic",
+      "confidence": 0.546982,
+      "phase4_predicted": "Haemorrhagic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 8.558778152867319e-08,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Normal/NOR-P06_DWI_s017.png",
+      "actual_label": "Normal",
+      "predicted_class": "Ischemic",
+      "confidence": 0.505059,
+      "phase4_predicted": "Ischemic",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 2.1846032931260861e-07,
+      "probabilities_valid": true
+    },
+    {
+      "image_path": "dataset/test/Normal/NOR-P06_GRE_s009.png",
+      "actual_label": "Normal",
+      "predicted_class": "Normal",
+      "confidence": 0.585202,
+      "phase4_predicted": "Normal",
+      "same_prediction_as_phase4": true,
+      "max_probability_difference": 5.568055723159659e-07,
+      "probabilities_valid": true
+    }
+  ],
+  "summary": {
+    "n_images": 9,
+    "all_predictions_match_phase4": true,
+    "max_probability_difference": 8.324412508198265e-07,
+    "all_probabilities_valid": true,
+    "sample_matches_actual_label": 7,
+    "note": "Pipeline-consistency check on a small sample; not an accuracy estimate."
+  },
+  "passed": true
+}

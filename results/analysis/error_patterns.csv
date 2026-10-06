@@ -1,0 +1,5 @@
+actual,sequence,Haemorrhagic,Ischemic,Normal
+Haemorrhagic,DWI,0,0,2
+Haemorrhagic,GRE,0,0,2
+Normal,DWI,0,3,0
+Normal,GRE,3,2,0

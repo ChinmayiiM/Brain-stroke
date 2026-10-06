@@ -1,0 +1,175 @@
+{
+  "checks": [
+    {
+      "check": "all three splits are non-empty",
+      "passed": true
+    },
+    {
+      "check": "image tensor shape is (B, (224, 224, 3))",
+      "passed": true
+    },
+    {
+      "check": "validation batch size is 32",
+      "passed": true
+    },
+    {
+      "check": "images are float32",
+      "passed": true
+    },
+    {
+      "check": "pixel range is [0, 255] (not pre-scaled to [0, 1])",
+      "passed": true
+    },
+    {
+      "check": "label shape is (B, 3)",
+      "passed": true
+    },
+    {
+      "check": "labels are valid one-hot vectors",
+      "passed": true
+    },
+    {
+      "check": "validation labels match metadata order (no shuffling)",
+      "passed": true
+    },
+    {
+      "check": "validation images equal shared preprocess_image output (no augmentation)",
+      "passed": true
+    },
+    {
+      "check": "validation pipeline is deterministic across iterations",
+      "passed": true
+    },
+    {
+      "check": "stage 1: backbone frozen, only head trainable",
+      "passed": true
+    },
+    {
+      "check": "stage 1 compilation succeeded",
+      "passed": true
+    },
+    {
+      "check": "output shape is (B, 3)",
+      "passed": true
+    },
+    {
+      "check": "softmax outputs sum to 1",
+      "passed": true
+    },
+    {
+      "check": "loss is finite and compatible with labels",
+      "passed": true
+    },
+    {
+      "check": "stage 1 step: no backbone weight (incl. BatchNorm stats) changed",
+      "passed": true
+    },
+    {
+      "check": "stage 1 step: classifier weights updated",
+      "passed": true
+    },
+    {
+      "check": "stage 2: exactly the top 20 backbone layers (minus BatchNorm) trainable",
+      "passed": true
+    },
+    {
+      "check": "stage 2 step: frozen backbone weights and all BatchNorm statistics unchanged",
+      "passed": true
+    },
+    {
+      "check": "stage 2 step: unfrozen backbone weights updated",
+      "passed": true
+    }
+  ],
+  "split_sizes": {
+    "train": 434,
+    "validation": 101,
+    "test (not loaded)": 68
+  },
+  "class_names": [
+    "Haemorrhagic",
+    "Ischemic",
+    "Normal"
+  ],
+  "train_batch": {
+    "x_shape": [
+      32,
+      224,
+      224,
+      3
+    ],
+    "x_dtype": "float32",
+    "y_shape": [
+      32,
+      3
+    ],
+    "x_min": 0.0,
+    "x_max": 255.0,
+    "x_mean": 56.04
+  },
+  "validation_batch": {
+    "x_shape": [
+      32,
+      224,
+      224,
+      3
+    ],
+    "y_shape": [
+      32,
+      3
+    ],
+    "x_min": 0.0,
+    "x_max": 255.0,
+    "x_mean": 45.0
+  },
+  "class_weight": {
+    "Haemorrhagic": 1.1302,
+    "Ischemic": 6.8889,
+    "Normal": 0.5076
+  },
+  "train_class_counts": {
+    "Haemorrhagic": 128,
+    "Ischemic": 21,
+    "Normal": 285
+  },
+  "stage1": {
+    "stage": 1,
+    "backbone_trainable_layers": 0,
+    "total": 4053414,
+    "trainable": 3843,
+    "non_trainable": 4049571,
+    "backbone_total": 4049571,
+    "backbone_trainable": 0,
+    "head_trainable": 3843
+  },
+  "forward_pass": {
+    "output_shape": [
+      32,
+      3
+    ],
+    "output_min": 0.10662903636693954,
+    "output_max": 0.6097707748413086
+  },
+  "untrained_validation_batch_loss": 1.1529371738433838,
+  "stage2": {
+    "stage": 2,
+    "unfreeze_top_n_layers": 20,
+    "backbone_trainable_layers": [
+      "block6d_project_conv",
+      "block7a_dwconv",
+      "block7a_expand_conv",
+      "block7a_project_conv",
+      "block7a_se_expand",
+      "block7a_se_reduce",
+      "top_conv"
+    ],
+    "backbone_layers_total": 238,
+    "total": 4053414,
+    "trainable": 1346611,
+    "non_trainable": 2706803,
+    "backbone_total": 4049571,
+    "backbone_trainable": 1342768,
+    "head_trainable": 3843
+  },
+  "passed": true
+}

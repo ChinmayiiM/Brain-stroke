@@ -1,0 +1,10 @@
+{
+  "test_paths_in_train_or_validation": 0,
+  "test_hashes_in_train_or_validation": 0,
+  "test_patients_in_train_or_validation": [],
+  "test_paths_located_in_test_folder": true,
+  "model_selection_recorded_before_test": true,
+  "near_duplicate_pairs_test_vs_fit": [],
+  "training_code_reads_test_split": false,
+  "passed": true
+}

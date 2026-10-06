@@ -1,0 +1,21 @@
+{
+  "trainable_backbone_layers": [
+    "block6d_project_conv",
+    "block7a_expand_conv",
+    "block7a_dwconv",
+    "block7a_se_reduce",
+    "block7a_se_expand",
+    "block7a_project_conv",
+    "top_conv"
+  ],
+  "frozen_backbone_layers_with_weights": 124,
+  "frozen_batchnorm_layers": 49,
+  "parameters": {
+    "total": 4053414,
+    "trainable": 1346611,
+    "non_trainable": 2706803,
+    "backbone_total": 4049571,
+    "backbone_trainable": 1342768,
+    "head_trainable": 3843
+  }
+}

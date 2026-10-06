@@ -1,0 +1,21 @@
+{
+  "source": "results/metrics/test_predictions.csv (Phase 4, 68 test images, 3 patients) \u2014 read-only re-aggregation",
+  "rule": "STROKE if P(Haemorrhagic)+P(Ischemic) >= 0.5",
+  "n": 68,
+  "stroke_images": 33,
+  "no_stroke_images": 35,
+  "accuracy": 0.8382352941176471,
+  "sensitivity_stroke": 0.9090909090909091,
+  "specificity_no_stroke": 0.7714285714285715,
+  "confusion_matrix_rows_actual_[no_stroke,stroke]": [
+    [
+      27,
+      8
+    ],
+    [
+      3,
+      30
+    ]
+  ],
+  "images_where_binary_differs_from_3class_argmax_grouping": 1
+}

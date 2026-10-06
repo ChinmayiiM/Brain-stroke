@@ -1,0 +1,17 @@
+patient_id,folder_label,split,images
+HAE-P01,Haemorrhagic,test,29
+HAE-P02,Haemorrhagic,train,50
+HAE-P03,Haemorrhagic,train,36
+HAE-P05,Haemorrhagic,train,42
+HAE-P04,Haemorrhagic,validation,29
+ISC-P05,Ischemic,test,4
+ISC-P01,Ischemic,train,3
+ISC-P02,Ischemic,train,7
+ISC-P03,Ischemic,train,11
+ISC-P04,Ischemic,validation,5
+NOR-P06,Normal,test,35
+NOR-P01,Normal,train,91
+NOR-P02,Normal,train,97
+NOR-P03,Normal,train,97
+NOR-P04,Normal,validation,34
+NOR-P05,Normal,validation,33

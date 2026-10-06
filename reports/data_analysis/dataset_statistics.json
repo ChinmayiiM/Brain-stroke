@@ -1,0 +1,172 @@
+{
+  "total_files": 615,
+  "class_folders_found": [
+    "Haemorrhagic",
+    "Ischemic",
+    "Normal"
+  ],
+  "missing_class_folders": [],
+  "unexpected_class_folders": [],
+  "images_per_class": {
+    "Haemorrhagic": 186,
+    "Ischemic": 30,
+    "Normal": 399
+  },
+  "class_distribution_pct": {
+    "Haemorrhagic": 30.24,
+    "Ischemic": 4.88,
+    "Normal": 64.88
+  },
+  "patients_per_class": {
+    "Haemorrhagic": 5,
+    "Ischemic": 5,
+    "Normal": 6
+  },
+  "images_per_patient": [
+    {
+      "folder_label": "Haemorrhagic",
+      "patient_id": "HAE-P01",
+      "images": 29
+    },
+    {
+      "folder_label": "Haemorrhagic",
+      "patient_id": "HAE-P02",
+      "images": 50
+    },
+    {
+      "folder_label": "Haemorrhagic",
+      "patient_id": "HAE-P03",
+      "images": 36
+    },
+    {
+      "folder_label": "Haemorrhagic",
+      "patient_id": "HAE-P04",
+      "images": 29
+    },
+    {
+      "folder_label": "Haemorrhagic",
+      "patient_id": "HAE-P05",
+      "images": 42
+    },
+    {
+      "folder_label": "Ischemic",
+      "patient_id": "ISC-P01",
+      "images": 3
+    },
+    {
+      "folder_label": "Ischemic",
+      "patient_id": "ISC-P02",
+      "images": 7
+    },
+    {
+      "folder_label": "Ischemic",
+      "patient_id": "ISC-P03",
+      "images": 11
+    },
+    {
+      "folder_label": "Ischemic",
+      "patient_id": "ISC-P04",
+      "images": 5
+    },
+    {
+      "folder_label": "Ischemic",
+      "patient_id": "ISC-P05",
+      "images": 4
+    },
+    {
+      "folder_label": "Normal",
+      "patient_id": "NOR-P01",
+      "images": 103
+    },
+    {
+      "folder_label": "Normal",
+      "patient_id": "NOR-P02",
+      "images": 97
+    },
+    {
+      "folder_label": "Normal",
+      "patient_id": "NOR-P03",
+      "images": 97
+    },
+    {
+      "folder_label": "Normal",
+      "patient_id": "NOR-P04",
+      "images": 34
+    },
+    {
+      "folder_label": "Normal",
+      "patient_id": "NOR-P05",
+      "images": 33
+    },
+    {
+      "folder_label": "Normal",
+      "patient_id": "NOR-P06",
+      "images": 35
+    }
+  ],
+  "images_per_sequence_and_class": {
+    "Haemorrhagic": {
+      "DWI": 32,
+      "FLAIR": 0,
+      "GRE": 27,
+      "SWI": 127,
+      "T2": 0
+    },
+    "Ischemic": {
+      "DWI": 19,
+      "FLAIR": 5,
+      "GRE": 0,
+      "SWI": 0,
+      "T2": 6
+    },
+    "Normal": {
+      "DWI": 108,
+      "FLAIR": 0,
+      "GRE": 93,
+      "SWI": 198,
+      "T2": 0
+    }
+  },
+  "image_width": {
+    "min": 256,
+    "max": 512,
+    "mean": 445.8
+  },
+  "image_height": {
+    "min": 256,
+    "max": 512,
+    "mean": 445.8
+  },
+  "dimension_counts": [
+    {
+      "image_width": 256,
+      "image_height": 256,
+      "count": 159
+    },
+    {
+      "image_width": 512,
+      "image_height": 512,
+      "count": 456
+    }
+  ],
+  "file_extensions": {
+    ".png": 615
+  },
+  "decoded_formats": {
+    "PNG": 615
+  },
+  "colour_modes": {
+    "RGB": 615
+  },
+  "grayscale_content_images": 615,
+  "missing_files": 0,
+  "corrupted_unreadable": 0,
+  "unparseable_filenames": 0,
+  "label_mismatches": 0,
+  "duplicate_filenames": 0,
+  "exact_duplicate_groups": 6,
+  "exact_duplicate_files": 18,
+  "redundant_exact_copies": 12,
+  "near_duplicate_pairs": 786,
+  "near_duplicate_pairs_cross_patient": 9
+}

@@ -1,0 +1,131 @@
+{
+  "description": "Performance on the held-out test split of the selected research dataset. Not a measure of clinical performance.",
+  "selected_stage": 2,
+  "selection_criterion": "max validation macro_recall; tie \u2192 min validation loss",
+  "n_images": 68,
+  "n_patients": 3,
+  "accuracy": 0.8235294117647058,
+  "balanced_accuracy": 0.8778325123152709,
+  "macro_precision": 0.7360897764123572,
+  "macro_recall": 0.8778325123152709,
+  "macro_f1": 0.7702531386741914,
+  "weighted_precision": 0.855213321887895,
+  "weighted_recall": 0.8235294117647058,
+  "weighted_f1": 0.831419096898973,
+  "loss": 0.48686545073187765,
+  "per_class": {
+    "Haemorrhagic": {
+      "support": 29,
+      "precision": 0.8928571428571429,
+      "recall_sensitivity": 0.8620689655172413,
+      "specificity": 0.9230769230769231,
+      "f1": 0.8771929824561403
+    },
+    "Ischemic": {
+      "support": 4,
+      "precision": 0.4444444444444444,
+      "recall_sensitivity": 1.0,
+      "specificity": 0.921875,
+      "f1": 0.6153846153846154
+    },
+    "Normal": {
+      "support": 35,
+      "precision": 0.8709677419354839,
+      "recall_sensitivity": 0.7714285714285715,
+      "specificity": 0.8787878787878788,
+      "f1": 0.8181818181818182
+    }
+  },
+  "roc_auc": {
+    "per_class": {
+      "Haemorrhagic": 0.9442970822281167,
+      "Ischemic": 1.0,
+      "Normal": 0.8701298701298701
+    },
+    "macro_ovr": 0.9381423174526623,
+    "note": null
+  },
+  "confusion_matrix": {
+    "labels": [
+      "Haemorrhagic",
+      "Ischemic",
+      "Normal"
+    ],
+    "rows_actual_cols_predicted": [
+      [
+        25,
+        0,
+        4
+      ],
+      [
+        0,
+        4,
+        0
+      ],
+      [
+        3,
+        5,
+        27
+      ]
+    ]
+  },
+  "shared_sequence_subset": {
+    "sequences": [
+      "DWI"
+    ],
+    "rationale": "sequences present in every class of the training split",
+    "n_images": 27,
+    "accuracy": 0.8148148148148148,
+    "balanced_accuracy": 0.8362573099415204,
+    "macro_precision": 0.762962962962963,
+    "macro_recall": 0.8362573099415204,
+    "macro_f1": 0.7454311454311454,
+    "per_class": {
+      "Haemorrhagic": {
+        "support": 6,
+        "precision": 1.0,
+        "recall_sensitivity": 0.6666666666666666,
+        "specificity": 1.0,
+        "f1": 0.8
+      },
+      "Ischemic": {
+        "support": 2,
+        "precision": 0.4,
+        "recall_sensitivity": 1.0,
+        "specificity": 0.88,
+        "f1": 0.5714285714285714
+      },
+      "Normal": {
+        "support": 19,
+        "precision": 0.8888888888888888,
+        "recall_sensitivity": 0.8421052631578947,
+        "specificity": 0.75,
+        "f1": 0.8648648648648649
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "Haemorrhagic",
+        "Ischemic",
+        "Normal"
+      ],
+      "rows_actual_cols_predicted": [
+        [
+          4,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          3,
+          16
+        ]
+      ]
+    }
+  }
+}

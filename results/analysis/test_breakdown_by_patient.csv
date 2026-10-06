@@ -1,0 +1,4 @@
+patient_id,actual,n,correct,accuracy,mean_confidence,predicted_counts
+HAE-P01,Haemorrhagic,29,25,0.8620689655172413,0.6739863830052829,Haemorrhagic=25; Normal=4
+ISC-P05,Ischemic,4,4,1.0,0.8760012705983559,Ischemic=4
+NOR-P06,Normal,35,27,0.7714285714285715,0.7136575348198333,Haemorrhagic=3; Ischemic=5; Normal=27
